@@ -33,6 +33,7 @@
         "onCommand:leetcode.createSession",
         "onCommand:leetcode.refreshExplorer",
         "onCommand:leetcode.showProblem",
+        "onCommand:leetcode.loadAllProblems",
         "onCommand:leetcode.searchProblem",
         "onCommand:leetcode.testSolution",
         "onCommand:leetcode.submitSolution",
@@ -91,6 +92,11 @@
             {
                 "command": "leetcode.showProblem",
                 "title": "Show Problem",
+                "category": "LeetCode"
+            },
+            {
+                "command": "leetcode.loadAllProblems",
+                "title": "Load All Problems",
                 "category": "LeetCode"
             },
             {
@@ -156,6 +162,11 @@
             "view/item/context": [
                 {
                     "command": "leetcode.showProblem",
+                    "when": "view == leetCodeExplorer && viewItem == problem",
+                    "group": "leetcode@1"
+                },
+                {
+                    "command": "leetcode.loadAllProblems",
                     "when": "view == leetCodeExplorer && viewItem == problem",
                     "group": "leetcode@1"
                 }

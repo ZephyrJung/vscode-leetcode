@@ -21,6 +21,14 @@ export async function showProblem(node?: LeetCodeNode): Promise<void> {
     await showProblemInternal(node);
 }
 
+export async function loadAllProblems(): Promise<void> {
+    if (!leetCodeManager.getUser()) {
+        promptForSignIn();
+        return;
+    }
+    await loadAllProblemsInternal();
+}
+
 export async function searchProblem(): Promise<void> {
     if (!leetCodeManager.getUser()) {
         promptForSignIn();
@@ -39,7 +47,14 @@ export async function searchProblem(): Promise<void> {
     await showProblemInternal(choice.value);
 }
 
+async function loadAllProblemsInternal() {
+    new Promise(async (resolve: (res: Array<IQuickItemEx<IProblem>>) => void): Promise<void> => {
+        (await list.listProblems()).map((problem: IProblem) => showProblemInternal(problem));
+    });
+}
+
 async function showProblemInternal(node: IProblem): Promise<void> {
+    console.log(node.id + " " + node.name)
     try {
         const leetCodeConfig: vscode.WorkspaceConfiguration = vscode.workspace.getConfiguration("leetcode");
         let defaultLanguage: string | undefined = leetCodeConfig.get<string>("defaultLanguage");
